@@ -1,0 +1,25 @@
+{
+  "name": "matcha",
+  "version": "1.0.0",
+  "description": "Site de rencontre Laguage: nodeJS",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Lolhomme/matcha.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Lolhomme/matcha/issues"
+  },
+  "homepage": "https://github.com/Lolhomme/matcha#readme",
+  "dependencies": {
+    "ejs": "^2.5.6",
+    "express": "^4.15.2",
+    "nodemon": "^1.11.0"
+  }
+}
