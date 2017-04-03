@@ -58,8 +58,13 @@
         </div><!--/.container-fluid -->
     </nav>
     <% if (locals.flash && locals.flash.error) { %>
-    <div class="err">
+    <div class="alert alert-danger">
         <%= flash.error %>
+    </div>
+    <% } %>
+    <% if (locals.flash && locals.flash.success) { %>
+    <div class="alert alert-success">
+        <%= flash.success %>
     </div>
     <% } %>
 </div> <!-- /container -->

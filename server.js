@@ -20,15 +20,22 @@ app.use(require('./middlewares/flash.js'))
 
 //Routes
 app.get('/', (request, response) => {
-    // console.log(request.session)
-    response.render('pages/index')
+    // response.render('pages/index')
+    response.render('pages/signup')
 })
 
 app.post('/', (request, response) => {
     /*Erreur type*/
-    if (request.body.password === undefined || request.body.password === ''){
+    if (request.body.inputPassword === undefined || request.body.inputPassword === ''){
     request.flash('error', "super erreur")
     response.redirect('/')
+    }
+    else {
+        let User = require ('./models/users.js')
+        User.create(request.body.inputUsername, function () {
+            request.flash('success', "Congrats")
+            response.redirect('/')
+        })
     }
 })
 
