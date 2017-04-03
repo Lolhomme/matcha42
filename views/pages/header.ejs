@@ -57,9 +57,9 @@
             </div><!--/.nav-collapse -->
         </div><!--/.container-fluid -->
     </nav>
-    <% if (locals.error) { %>
-    <div class="has-error">
-        <% error %>
+    <% if (locals.flash && locals.flash.error) { %>
+    <div class="err">
+        <%= flash.error %>
     </div>
     <% } %>
 </div> <!-- /container -->
