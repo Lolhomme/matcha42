@@ -1,1 +1,44 @@
 <% include header %>
+<% include footer %>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../favicon.ico">
+
+    <title>Signin Template for Bootstrap</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="../../assets/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="../../assets/bootstrap/docs/examples/signin/signin.css" rel="stylesheet">
+    <link href="../../assets/bootstrap/docs/examples/jumbotron/jumbotron.css" rel="stylesheet">
+</head>
+<body>
+<div class="container">
+    <div class="container">
+        <form class="form-signin">
+            <h2 class="form-signin-heading">Inscription</h2>
+            <label for="inputEmail" class="sr-only">Email</label>
+            <input type="email" id="inputEmail" class="form-control" placeholder="Email" required autofocus>
+            <label for="inputUsername" class="sr-only">Nom d'utilisateur</label>
+            <input type="text" id="inputUsername" class="form-control" placeholder="Nom d'utilisateur" required autofocus>
+            <label for="inputName" class="sr-only">Prénom</label>
+            <input type="text" id="inputName" class="form-control" placeholder="Prénom" required autofocus>
+            <label for="inputLastname" class="sr-only"></label>
+            <input type="text" id="inputLastname" class="form-control" placeholder="Nom de famille" required autofocus>
+            <label for="inputPassword" class="sr-only">Password</label>
+            <input type="password" id="inputPassword" class="form-control" placeholder="Mot de passe" required>
+            <button class="btn btn-lg btn-primary btn-block" type="submit">S'inscrire</button>
+        </form>
+    </div>
+</div> <!-- /container -->
+</body>
+</html>
