@@ -1,3 +1,3 @@
 # matcha
 Site de rencontre
-Laguage: nodeJS
+Language: nodeJS
