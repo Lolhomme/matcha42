@@ -1,42 +1,45 @@
-let express = require('express')
-let app =  express()
-let bodyParser = require('body-parser')
-let session = require('express-session')
+let express = require('express');
+let app =  express();
+let bodyParser = require('body-parser');
+let session = require('express-session');
 
 //Template
-app.set('view engine', 'ejs')
+app.set('view engine', 'ejs');
 
 //Middleware
-app.use('/assets', express.static('public'))
-app.use(bodyParser.urlencoded({extended: false }))
-app.use(bodyParser.json())
+app.use('/assets', express.static('public'));
+app.use(bodyParser.urlencoded({extended: false }));
+app.use(bodyParser.json());
 app.use(session({
     secret: 'loulou',
     resave: false,
     saveUninitialized: true,
     cookie: { secure: false }
-}))
-app.use(require('./middlewares/flash.js'))
+}));
+app.use(require('./middlewares/flash.js'));
 
 //Routes
 app.get('/', (request, response) => {
     // response.render('pages/index')
-    response.render('pages/signup')
-})
+    response.render('pages/index');
+});
+app.get('/signup.ejs', (request, response) => {
+    response.render('pages/signup');
+});
 
 app.post('/', (request, response) => {
     /*Erreur type*/
     if (request.body.inputPassword === undefined || request.body.inputPassword === ''){
-    request.flash('error', "super erreur")
-    response.redirect('/')
+    request.flash('error', "super erreur");
+    response.redirect('/');
     }
     else {
-        let User = require ('./models/users.js')
+        let User = require ('./models/users.js');
         User.create(request.body.inputUsername, function () {
-            request.flash('success', "Congrats")
-            response.redirect('/')
+            request.flash('success', "Congrats");
+            response.redirect('/');
         })
     }
-})
+});
 
-app.listen(8080)
+app.listen(8080);
