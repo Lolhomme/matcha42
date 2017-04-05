@@ -20,26 +20,26 @@ app.use(require('./middlewares/flash.js'));
 
 //Routes
 app.get('/', (request, response) => {
-    // response.render('pages/index')
     response.render('pages/index');
 });
 app.get('/signup.ejs', (request, response) => {
     response.render('pages/signup');
 });
 
-app.post('/', (request, response) => {
-    /*Erreur type*/
-    if (request.body.inputPassword === undefined || request.body.inputPassword === ''){
+app.post('/signup.ejs', (request, response) => {
+    console.log(request.body);
+/*Erreur type*/
+if (request.body.email === undefined || request.body.email === '') {
     request.flash('error', "super erreur");
-    response.redirect('/');
-    }
-    else {
-        let User = require ('./models/users.js');
-        User.create(request.body.inputUsername, function () {
-            request.flash('success', "Congrats");
-            response.redirect('/');
-        })
-    }
+    response.redirect('/signup.ejs');
+}
+else if (request.body.email === 'anthonylaulom@gmail.com'){
+    /*let User = require ('./models/users.js');
+    User.create(request.body.username, function () {*/
+        request.flash('success', "Congrats");
+        response.redirect('/');
+    // })
+}
 });
 
 app.listen(8080);
