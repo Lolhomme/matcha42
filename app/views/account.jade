@@ -1,0 +1,132 @@
+include ./layouts/header.jade
+
+main
+	div#add_tags_modal.modal
+		div.modal-content
+			row.section
+				h4.center You want to have a new #tag ?
+				p Search for a tags and we will add it to you !
+				form.col
+					row
+						div.input-field.row
+							input#new_tag.validate(type="text")
+							label Tag
+						div#progress_new_tag.progress(style="display: none")
+							div.indeterminate
+						div.center
+							button#submit_new_tags.btn Add
+	div#add_image_modal.modal
+		div.modal-content
+			row.section
+				h4.center Upload a new image to your profile
+				p Choose the image to upload it
+				form.col
+					row
+						div.input-field.file-field.row
+							div.btn
+								span File
+								input#image_input.validate(type="file", accept="image/*")
+							div.file-path-wrapper
+								input.file-path.validate(type="text")
+						br
+						div#progress_new_image.progress(style="display: none")
+							div.indeterminate
+						div.center
+							button#submit_new_image.btn Upload
+	div.row
+		div.container
+			if user.picture
+				img.circle.responsive-img.profile_pic.center-block(src=user.picture)
+			else
+				img.circle.responsive-img.profile_pic.center-block(src="/img/default_avatar.jpg")
+			form.col.s12(id="profile_form")
+				row
+					div.input-field.col.s6
+						i.material-icons.prefix email
+						input#email_profile.validate(type="email", value=user.mail)
+						label(for="age_profile") Email
+					div.input-field.col.s6
+						i.material-icons.prefix timeline
+						input#age_profile.validate(type="number", value=user.age)
+						label(for="age_profile") Age
+					div.input-field.col.s6
+						i.material-icons.prefix assignment_ind
+						input#firstname_profile.validate(type="text", value=user.firstname)
+						label Firstname
+					div.input-field.col.s6
+						i.material-icons.prefix assignment_ind
+						input#lastname_profile.validate(type="text", value=user.lastname)
+						label Lastname
+					div.input-field.col.s6
+						i.material-icons.prefix lock
+						input#oldpassword_profile.validate(type="password")
+						label(for="password_profile") Old Password
+					div.input-field.col.s6
+						i.material-icons.prefix lock
+						input#password_profile.validate(type="password")
+						label New Password
+					div.input-field.col.s6
+						i.material-icons.prefix face
+						select#gender_profile.multiple
+							if (user.gender == "MEN")
+								option.selected MEN
+								option WOMEN
+							else if user.gender == "WOMEN"
+								option.selected WOMEN
+								option MEN
+							else
+								option.disabled.selected Choose
+								option MEN
+								option WOMEN
+						label Gender
+					div.input-field.col.s6
+						i.material-icons.prefix accessibility
+						select#orientation_profile.multiple
+							if (user.orientation == "HOMOSEXUAL")
+								option.selected HOMOSEXUAL
+								option BISEXUAL
+								option HETEROSEXUAL
+							else if user.orientation == "HETEROSEXUAL"
+								option.selected HETEROSEXUAL
+								option BISEXUAL
+								option HOMOSEXUAL
+							else if user.orientation == "BISEXUAL"
+								option.selected BISEXUAL
+								option HOMOSEXUAL
+								option HETEROSEXUAL
+						label Orientation
+					div.input-field.col.s12
+						textarea#bio_profile.materialize-textarea(length="242") #{user.bio}
+						label Bio
+					div.input-field.col.s12
+						h6 Interests
+						div#tags_list.card
+							unless tags.length > 0
+								p Choose your interest by picking tags
+							each val in tags
+								div.chip(id=val.id) #{val.name}
+									i.material-icons(onclick="delete_chip(this);") close
+							a#add_tags.btn-floating.waves-effect.waves-light.blue.right
+								i.material-icons add
+					div#map_profile.input-field.col.s12
+						h6 Localisation
+						div#map.card
+						a#update_loc.btn.waves-effect.waves-light.blue Update
+					div.input-field.col.s12
+						h6 Images
+						div#images_card.center
+							ul
+								each val in images
+									li#image.card.small
+										div.card-image
+											img(src=val.img)
+										div.card-action
+											p.blue-text
+												a#delete_image.waves-effect.waves-light(img=val.id, onclick="delete_image(this);") Delete
+												a#love_image.waves-effect.waves-light(img=val.id, onclick="favorite_image(this);") Pick as avatar
+								unless images.length == 5
+									li#image
+										a#add_image.btn.blue.waves-effect.waves-light(onclick="$('#add_image_modal').openModal();")
+											i.material-icons add
+include ./layouts/chat.jade                                            
+include ./layouts/footer.jade

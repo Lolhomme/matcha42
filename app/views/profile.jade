@@ -1,0 +1,108 @@
+include ./layouts/header.jade
+div#visits_modal.modal
+		div.modal-content
+			row.section
+				h4.center Last visits
+				form.col
+					row
+						div#progress_visits.progress
+							div.indeterminate
+						div#visits_list.collection
+main
+	div#report_modal.modal
+		div.modal-content(style="height: 300px")
+			row.section
+				h4.center Report an user
+				p Choose a reason and we will treat the report as soon as possible.
+				form.col
+					row
+						div.input-field.col.s6
+						select#report_cause.multiple
+								option FAKE
+								option AFK
+								option INSULTING
+						label Why ?
+						br
+						br
+						div.center
+							button#send_report.btn Report user
+	div.row
+		div.container
+			if user.picture
+				img.circle.responsive-img.profile_pic.center-block(src=user.picture)
+			else
+				img.circle.responsive-img.profile_pic.center-block(src="/img/default_avatar.jpg")
+			div#btnprofile.center
+				p Popularity : #{user.score}
+				if matched
+					a#match_user.waves-effect.waves-light.btn.profile_btn.red.lighten-1 Unmatch
+						i.material-icons.left favorite_border
+				else if images.length > 0
+					a#match_user.waves-effect.waves-light.btn.profile_btn.green.lighten-1 Match
+						i.material-icons.left favorite
+				else
+					a.waves-effect.waves-light.btn.profile_btn.green.lighten-1.disabled.tooltipped(data-position="top" data-delay="50" data-tooltip="This user has no image") Match
+						i.material-icons.left favorite
+				br
+				a.waves-effect.waves-light.btn.profile_btn.red.lighten-1(onclick="$('#report_modal').openModal();") Report
+					i.material-icons.left report_problem
+				if blocked
+					a#block_user.waves-effect.waves-light.btn.profile_btn.green.lighten-1 Unblock
+						i.material-icons.left block
+				else
+					a#block_user.waves-effect.waves-light.btn.profile_btn.red.lighten-1 Block
+						i.material-icons.left block
+				br
+				a.waves-effect.waves-light.btn.profile_btn.blue.lighten-1(onclick="load_visits(); $('#visits_modal').openModal();") Visits
+						i.material-icons.left history
+				if (user.last_visit == undefined)
+					p(style="color: red") Last seen : never
+				else if (user.last_visit == "Invalid date")
+					p(style="color: green") Last seen : ONLINE
+				else
+					p Last seen : #{user.last_visit}
+			br
+			form.col.s12()
+				row
+					div.input-field.col.s6
+						i.material-icons.prefix assignment_ind
+						input(type="text", value=user.firstname, disabled="true")
+						label Firstname
+					div.input-field.col.s6
+						i.material-icons.prefix assignment_ind
+						input(type="text", value=user.lastname, disabled="true")
+						label Lastname
+					div.input-field.col.s4
+						i.material-icons.prefix face
+						input(type="text", value=user.gender, disabled="true")
+						label Gender
+					div.input-field.col.s4
+						i.material-icons.prefix accessibility
+						input(type="text", value=user.orientation, disabled="true")
+						label Orientation
+					div.input-field.col.s4
+						i.material-icons.prefix timeline
+						input(type="text", value=user.age, disabled="true")
+						label Age
+					div.input-field.col.s12
+						textarea.materialize-textarea(length="242", disabled="true") #{user.bio}
+						label Bio
+					div.input-field.col.s12
+						h6 Interests
+						div#tags_list.card
+							unless tags.length > 0
+								p This user doesnt have any interest
+							each val in tags
+								div.chip(id=val.id) #{val.name}
+					div#map_profile.input-field.col.s12
+						h6 Localisation
+						div#map.card(loc=user.location)
+					div.input-field.col.s12
+						h6 Images
+						div#images_card.center
+							ul
+								each val in images
+									li#image_profile.card.small
+										img(src=val.img)
+include ./layouts/chat.jade                                                  
+include ./layouts/footer.jade
